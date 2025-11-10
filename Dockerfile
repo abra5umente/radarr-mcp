@@ -22,10 +22,6 @@ RUN chmod +x entrypoint.sh
 RUN useradd -m -u 1000 mcp && chown -R mcp:mcp /app
 USER mcp
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:${RADARR_MCP_PORT:-4200}/mcp || exit 1
-
 EXPOSE 4200
 
 ENTRYPOINT ["./entrypoint.sh"] 

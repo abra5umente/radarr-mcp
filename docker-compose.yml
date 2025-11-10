@@ -6,7 +6,7 @@ services:
     container_name: radarr-mcp
     restart: unless-stopped
     ports:
-      - "${RADARR_MCP_PORT:-9170}:9170"
+      - "${RADARR_MCP_PORT:-4200}:${RADARR_MCP_PORT:-4200}"
     env_file:
       - .env
     volumes:
@@ -14,7 +14,7 @@ services:
     networks:
       - jakenet
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9170/mcp"]
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:$${RADARR_MCP_PORT:-4200}/mcp"]
       interval: 30s
       timeout: 10s
       retries: 3
